@@ -163,4 +163,13 @@
       last_updated_by = #{lastUpdatedBy,jdbcType=BIGINT}
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
+
+
+
+  <select id="getUserInfoList" resultType="map">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+  </select>
+
 </mapper>

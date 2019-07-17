@@ -2,6 +2,8 @@ package com.training.mapper;
 
 import com.training.dto.UserInfo;
 
+import java.util.List;
+
 public interface UserInfoMapper {
 
     int deleteByPrimaryKey(Long userId);
@@ -15,4 +17,6 @@ public interface UserInfoMapper {
     int updateByPrimaryKeySelective(UserInfo record);
 
     int updateByPrimaryKey(UserInfo record);
+
+    List<UserInfo> getUserInfoList();
 }
