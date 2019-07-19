@@ -164,9 +164,9 @@
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
 
-
-
-  <select id="getUserInfoList" resultType="map">
+<!--两种方式-->
+  <!--<select id="getUserInfoList" resultMap="com.training.mapper.ContentMapper.BaseResultMap">-->
+  <select id="getUserInfoList" resultType="com.training.dto.UserInfo">
     select
     <include refid="Base_Column_List" />
     from user_info

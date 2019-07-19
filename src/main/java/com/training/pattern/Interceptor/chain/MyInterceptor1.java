@@ -1,23 +1,23 @@
-package com.training.pattern.Interceptor;
+package com.training.pattern.Interceptor.chain;
+
+import com.training.pattern.Interceptor.Interceptor;
 
 import java.lang.reflect.Method;
 
-public class MyInterceptor implements Interceptor {
+public class MyInterceptor1 implements Interceptor {
 
     @Override
     public boolean before(Object proxy, Object target, Method method, Object[] args) {
-        System.err.println("反射方法前逻辑");
-        return false;
+        System.out.println("【拦截器1 】 的before 方法");
+        return true;
     }
 
     @Override
     public void around(Object proxy, Object target, Method method, Object[] args) {
-        System.err.println(" 取代了代理对象的方法");
-
     }
 
     @Override
     public void after(Object proxy, Object target, Method method, Object[] args) {
-        System.err.println(" 反射方法后逻辑");
+        System.out.println("【拦截器1 】 after 方法");
     }
 }

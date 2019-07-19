@@ -47,8 +47,8 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
-      <!-- 指定范围，在测试时才会加载 -->
-      <scope>test</scope>
+     <!-- &lt;!&ndash; 指定范围，在测试时才会加载 &ndash;&gt;
+      <scope>test</scope>-->
     </dependency>
 
     <!-- 添加spring核心依赖 -->

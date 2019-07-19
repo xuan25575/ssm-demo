@@ -1,4 +1,6 @@
 package com.training.pattern.factory;
 
-public class IProductFactory {
+// 抽象工厂。
+public interface IProductFactory {
+    Product createProduct(String productNo);
 }
