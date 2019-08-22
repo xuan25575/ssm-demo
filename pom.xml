@@ -46,7 +46,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.12</version>
      <!-- &lt;!&ndash; 指定范围，在测试时才会加载 &ndash;&gt;
       <scope>test</scope>-->
     </dependency>
@@ -261,6 +261,33 @@
       <version>${spring.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-core</artifactId>
+      <version>5.7.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jms</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+    <!--jedis  版本和 spring-data-redis 版本需要兼容 -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>1.6.0.RELEASE</version>
+    </dependency>
+
 
 
   </dependencies>
@@ -290,14 +317,24 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.2</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
           <compilerArguments>
             <extdirs>src\main\webapp\WEB-INF\lib</extdirs>
           </compilerArguments>
         </configuration>
       </plugin>
     </plugins>
+        <!--IDEA是不会编译src的java目录的xml文件 不配置的话-->
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
+
 
 </project>

@@ -27,6 +27,7 @@ public class CglibProxyExample implements MethodInterceptor {
         System.out.println("before ");
         // invokeSuper  调用真实对象方法
         Object result = methodProxy.invokeSuper(o, args);
+       // Object result =  methodProxy.invoke(o, args);
         System.out.println("after  ");
         return result;
     }

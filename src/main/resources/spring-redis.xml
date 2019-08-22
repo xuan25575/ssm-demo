@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-     http://www.springframework.org/schema/context
-     http://www.springframework.org/schema/context/spring-context-3.0.xsd
-    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.0.xsd">
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="com.training.JMS" />
-
-    <!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 -->
-    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
-        <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
-        <property name="connectionFactory" ref="connectionFactory"/>
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--最大空闲数-->
+        <property name="maxIdle" value="50"/>
+        <!--最大连接数-->
+        <property name="maxTotal" value="100"/>
+        <!--最大等待时间-->
+        <property name="maxWaitMillis" value="20000"/>
     </bean>
 
-    <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->
-    <bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="tcp://localhost:61616"/>
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="localhost"/>
+        <property name="port" value="6379"/>
+        <property name="poolConfig" ref="poolConfig"/>
     </bean>
 
-    <!-- Spring用于管理真正的ConnectionFactory的ConnectionFactory -->
-    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
-        <!-- 目标ConnectionFactory对应真实的可以产生JMS Connection的ConnectionFactory -->
-        <property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+
+    <bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"></bean>
+    <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"></property>
+        <property name="keySerializer" ref="stringRedisSerializer"></property>
+        <property name="valueSerializer" ref="jdkSerializationRedisSerializer"></property>
     </bean>
 
-    <!--这个是队列目的地-->
-    <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg>
-            <value>queue</value>
-        </constructor-arg>
-    </bean>
-    <!-- 消息监听器 -->
-    <bean id="consumerMessageListener" class="com.training.JMS.ConsumerMessageListener"/>
-    <!-- 消息监听容器 -->
-    <bean id="jmsContainer"
-          class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="connectionFactory" />
-        <property name="destination" ref="queueDestination" />
-        <property name="messageListener" ref="consumerMessageListener" />
-    </bean>
+
 </beans>

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.artisan.ssm_redis.dao.RoleDao">
+<mapper namespace="com.training.redis.cache.mapper.RoleMapper">
 
-    <select id="getRole" resultType="com.artisan.ssm_redis.domain.Role">
+    <select id="getRole" resultType="com.training.redis.cache.Role">
         select id, role_name as
         roleName, note from t_role where id = #{id}
     </select>
@@ -13,16 +13,15 @@
         delete from t_role where id=#{id}
     </delete>
 
-    <insert id="insertRole" parameterType="com.artisan.ssm_redis.domain.Role"
-            useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="role" useGeneratedKeys="true" keyProperty="id">
         insert into t_role (role_name, note) values(#{roleName}, #{note})
     </insert>
 
-    <update id="updateRole" parameterType="com.artisan.ssm_redis.domain.Role">
+    <update id="updateRole" parameterType="com.training.redis.cache.Role">
         update t_role set role_name = #{roleName}, note = #{note}
         where id = #{id}
     </update>
-    <select id="findRoles" resultType="com.artisan.ssm_redis.domain.Role">
+    <select id="findRoles" resultType="com.training.redis.cache.Role">
         select id, role_name as roleName, note from t_role
         <where>
             <if test="roleName != null">

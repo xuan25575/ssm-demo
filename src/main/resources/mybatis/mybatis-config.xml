@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.training.redis.cache.Role" alias="role"/> <!-- 别名 -->
+        <!--<package name="com.maya.model" />  -->
+    </typeAliases>
+    <mappers>
+        <!--IDEA是不会编译src的java目录的xml文件，所以在Mybatis的配置文件中找不到xml文件！
+        （也有可能是Maven构建项目的问题，网上教程很多项目是普通的Java web项目，所以可以放到src下面也能读取到）-->
+        <!--<mapper resource="com/training/redis/cache/mapper/RoleMapper.xml"/>-->
+
+        <!--<package name="com.training.redis.cache.mapper"/>-->
+        <!--写的是接口的全名。-->
+        <mapper class="com.training.redis.cache.mapper.RoleMapper"/>
+    </mappers>
+</configuration>

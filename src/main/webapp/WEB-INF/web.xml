@@ -8,9 +8,10 @@
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
+    <!--多个配置文件中间用,隔开-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring-mybatis.xml</param-value>
+        <param-value>classpath:spring-mybatis.xml,classpath:spring-jms.xml</param-value>
     </context-param>
     <!-- 编码过滤器 -->
     <filter>
