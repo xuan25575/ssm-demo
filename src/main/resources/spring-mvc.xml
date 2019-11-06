@@ -17,7 +17,7 @@
     <aop:aspectj-autoproxy />
 
     <!-- 自动扫描  @Controller-->
-    <context:component-scan base-package="com.training.controller,com.training.service,com.training.mapper"/>
+    <context:component-scan base-package="com.training.controller,com.training.service,com.training.mapper,com.training.easyExcel"/>
 
     <!--静态资源映射-->
     <!--本项目把静态资源放在了WEB-INF的子目录下，资源映射如下-->
